@@ -17,6 +17,6 @@ for question in questions:
     print(f"Question: {question}\n")
     for i, doc in enumerate(results):
         print(f"--- Result {i+1} ---")
-        print(doc.page_content[:400])  # truncate if long
+        print(doc.page_content)  # truncate if long
         print()
     print("-" * 40)
