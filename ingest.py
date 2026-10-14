@@ -109,12 +109,19 @@ def clean_page(text, boilerplate):
 def build_documents(pages, boilerplate):
     docs = []
     skipped = 0
+    duplicates = 0
+    seen = set()
 
     for course, filename, page_number, raw_text in pages:
         text = clean_page(raw_text, boilerplate)
         if len(text) < MIN_CHARS:           # title slides, pure images
             skipped += 1
             continue
+
+        if text in seen:
+            duplicates += 1
+            continue
+        seen.add(text)
 
         docs.append(
             Document(
@@ -130,6 +137,7 @@ def build_documents(pages, boilerplate):
         )
 
     print(f"Skipped {skipped} slide(s) with under {MIN_CHARS} characters")
+    print(f"Removed {duplicates} exact duplicate slide(s)")
 
     # Most slides are already the right size, so we do NOT split by default.
     # Only the rare wall-of-text slide gets cut up; split_documents copies

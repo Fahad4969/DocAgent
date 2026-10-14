@@ -1,0 +1,21 @@
+question,gold
+If you shuffle the input tokens of a Transformer what happens to the output and how is that fixed?,lecture_25.pdf:11;lecture_24.pdf:68;lecture_26.pdf:11
+What stops an autoencoder from simply learning to copy its input?,lecture_14.pdf:8
+Why do gradients shrink when a simple RNN is trained over long sequences?,lecture_17.pdf:33
+Why normalize embeddings and compare their angle instead of their distance?,lecture_20.pdf:12
+Why train with semi-hard negatives rather than the hardest negatives in triplet loss?,lecture_20.pdf:30
+How does adding momentum change plain stochastic gradient descent?,lecture_10.pdf:20
+Why does a masked autoencoder hide such a large share of the image patches?,lecture_26.pdf:86;lecture_27.pdf:37;lecture_28.pdf:37
+How does a decoder prevent a position from looking at later tokens?,lecture_23.pdf:24;lecture_24.pdf:24
+What is the difference between a global shutter and a rolling shutter camera?,lecture_05.pdf:29
+Why does CTC add an extra blank symbol to the output alphabet?,lecture_22.pdf:13
+What problem appears with Euler angles when the pitch reaches 90 degrees?,"2025WS SDF1 Intro, Coordinates, ComplFilt.pdf:25"
+How can gyroscope and accelerometer readings be merged with a simple weighted scheme?,"2025WS SDF1 Intro, Coordinates, ComplFilt.pdf:37;2025WS SDF2 Sensing with Cameras.pdf:9;2026SS Recap 1 ComplFilt, LeastSquares, Neural Nets.pdf:29"
+Why is the sample variance divided by n minus 1 instead of n?,"2025WS SDF11 Variance Covariance.pdf:14;2026SS Recap 2 Neural Nets, Stochastics, Sensor Modeling.pdf:44"
+In which situations does linearizing a nonlinear model for Kalman filtering work badly?,2025WS SDF15 EKF UKF.pdf:7
+How do you decide whether a new measurement is close enough to belong to an existing track?,"2025WS SDF17 MOT.pdf:8;2026SS Recap 3 KF, MOT.pdf:35;2026SS Recap 4 UKF, MOT, PF, SLAM.pdf:14"
+What goes wrong in a particle filter if old samples are never redrawn?,2025WS SDF20 PF.pdf:17
+What makes building a map while localizing a robot so difficult?,2025WS SDF22 SLAM.pdf:31
+How does SIFT find keypoints that work at different image sizes?,2025WS SDF25 Features.pdf:12
+What does occupancy grid mapping assume about the individual cells?,2025WS SDF26 Grids Early Fusion.pdf:10;2025WS SDF25 Features.pdf:24
+How does single-shot detection like YOLO differ from the two-stage R-CNN approach?,"2025WS SDF7 R-CNNs, YOLO.pdf:18"
