@@ -1,35 +1,18 @@
-"""
-Measure retrieval quality: for each question in eval_questions.csv, is the
-slide that answers it among the top-k search results, and at which rank?
-
-No LLM is called, so this is free, fast and gives the same result every run.
-
-Usage:
-    python eval_retrieval.py              # print metrics + misses
-    python eval_retrieval.py --verbose    # also print the rank for every question
-"""
-
 import argparse
 import csv
 
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
-# Same constants as ingest.py and ask.py, so we test exactly what ask.py uses.
 from ingest import DB_DIR, EMBED_MODEL
 
 EVAL_FILE = "eval_questions.csv"
-MAX_K = 10                   # one search with k=10 gives hit@1/3/6/10 at once
-REPORT_KS = [1, 3, 6, 10]    # 6 is ask.py's default
+MAX_K = 10                   
+REPORT_KS = [1, 3, 6, 10]   
 
 
 def load_questions(path):
-    """
-    Each row: question, gold.
-    gold lists every copy of the answer slide, e.g.
-        "lecture_26.pdf:86;lecture_27.pdf:37"
-    Split on the LAST ':' so only the page number is cut off the file name.
-    """
+   
     questions = []
     with open(path, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
@@ -68,8 +51,7 @@ def main():
         rank = first_hit_rank(docs, gold)
         ranks.append(rank)
 
-        # How many DIFFERENT slide texts did the top 6 contain?
-        # Duplicate slides in the corpus waste top-k slots.
+        
         distinct_in_top6.append(len({d.page_content for d in docs[:6]}))
 
         if args.verbose:
@@ -83,8 +65,7 @@ def main():
         hits = sum(1 for r in ranks if r is not None and r <= k)
         print(f"  hit@{k:<2}  {hits:>2}/{n}  = {hits / n:.0%}")
 
-    # MRR: average of 1/rank, counting a miss as 0.
-    # Rewards finding the right slide near the top, not just somewhere in the top 10.
+    
     mrr = sum(1 / r for r in ranks if r is not None) / n
     print(f"  MRR      {mrr:.3f}")
 

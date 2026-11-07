@@ -4,6 +4,14 @@ A study assistant for my university lecture slides. You ask a question, it finds
 
 Built for two Master's courses at TH Ingolstadt: Machine Perception, and Sensor Network Technologies and Sensor Data Fusion.
 
+![docuagent web interface](docs/app.png)
+
+```
+streamlit run app.py
+```
+
+Pick a course in the sidebar to search only its slides. Each answer lists its source slides, and you can expand them to see the text the answer was based on. There is also a command-line version:
+
 ```
 python ask.py "What is a masked autoencoder?"
 ```
@@ -13,6 +21,7 @@ python ask.py "What is a masked autoencoder?"
 1. **Ingest** (`ingest.py`): reads 57 lecture PDFs, makes one chunk per slide, removes repeated headers, empty slides and duplicate slides, then embeds each slide with `all-MiniLM-L6-v2` and stores it in Chroma.
 2. **Ask** (`ask.py`): embeds the question, retrieves the 6 closest slides (optionally from one course with `--course`), and sends them to an LLM via Groq with the instruction to answer only from those slides and cite them.
 3. **Evaluate** (`eval_retrieval.py`): checks on 20 test questions whether the correct slide is retrieved.
+4. **Web interface** (`app.py`): the same retrieval and prompt as `ask.py`, in a Streamlit page with a course filter and expandable sources.
 
 One slide per chunk works better than fixed-size chunks: each slide is already one topic, and it gives exact citations.
 
@@ -44,10 +53,11 @@ Before deduplication, the same slide sometimes filled several of the top results
 
 ```
 pip install -r requirements.txt
-echo GROQ_API_KEY=your_key > .env
+# create a file named .env containing: GROQ_API_KEY=your_key
 # put PDFs in data/<Course name>/*.pdf
 
 python ingest.py
 python eval_retrieval.py
+streamlit run app.py
 python ask.py "your question" --course machine
 ```

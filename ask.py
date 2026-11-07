@@ -7,10 +7,6 @@ from langchain_chroma import Chroma
 from dotenv import load_dotenv
 
 load_dotenv()
-# Import the constants from ingest.py rather than retyping them.
-# If the embedding model in ingest.py ever changes, this file follows
-# automatically — searching one model's vectors with another model's
-# query returns nonsense, silently, with no error.
 from ingest import DB_DIR, EMBED_MODEL
 
 MODEL = "openai/gpt-oss-120b"
@@ -45,8 +41,7 @@ def main():
     embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
     db = Chroma(persist_directory=DB_DIR, embedding_function=embeddings)
 
-    # Metadata filtering: this is what the course tag on every chunk buys you.
-    # Chroma only matches exact values, so resolve a partial name first.
+    
     where = None
     if args.course:
         courses = {m["course"] for m in db.get(include=["metadatas"])["metadatas"]}
